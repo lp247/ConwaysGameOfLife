@@ -1,0 +1,11 @@
+{
+  "name": "conwaysgameoflife",
+  "version": "1.0.0",
+  "description": "Conway's Game of Life",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Peter Lehnhardt",
+  "license": "MIT"
+}
