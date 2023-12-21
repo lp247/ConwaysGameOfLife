@@ -3,15 +3,19 @@
     "version": "1.0.0",
     "description": "Conway's Game of Life",
     "main": "index.js",
+    "type": "module",
     "scripts": {
-        "build": "tsc",
-        "watch": "tsc -w",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "dev": "vite",
+        "build": "vite build",
+        "preview": "vite preview",
+        "test": "vitest"
     },
     "author": "Peter Lehnhardt",
     "license": "MIT",
     "devDependencies": {
         "prettier": "^3.1.1",
-        "typescript": "^5.3.3"
+        "typescript": "^5.3.3",
+        "vite": "^5.0.10",
+        "vitest": "^1.1.0"
     }
 }
