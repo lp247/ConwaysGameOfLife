@@ -12,15 +12,16 @@ const determineGridSize = (screenWidth: number, screenHeight: number): GridSize 
     return {width: screenWidth / gcd, height: screenHeight / gcd};
 };
 
-const generateDomCellString = (alive: boolean): string => {
-    if (alive) {
-        return `<div class="cell alive"></div>`;
-    }
-    return `<div class="cell"></div>`;
-};
+interface DOMStringConverter {
+    (grid: Grid): string;
+    (cell: boolean): string;
+}
 
-const generateDomGridString = (grid: Grid): string => {
-    return grid.map((row) => row.map((cell) => generateDomCellString(cell)).join("")).join("");
+const toDOMString: DOMStringConverter = (value) => {
+    if (typeof value === "boolean") {
+        return value ? `<div class="cell alive"></div>` : `<div class="cell"></div>`;
+    }
+    return value.map((row) => row.map((cell) => toDOMString(cell)).join("")).join("");
 };
 
 const generateInitialGrid = (size: GridSize, fill: (x: number, y: number) => boolean): Grid => {
@@ -41,7 +42,7 @@ export const setupGrid = (container: HTMLElement) => {
     container.style.setProperty("display", "grid");
     container.style.setProperty("grid-template-columns", `repeat(${gridSize.width}, 1fr)`);
     container.style.setProperty("grid-template-rows", `repeat(${gridSize.height}, 1fr)`);
-    container.innerHTML = generateDomGridString(generateInitialGrid(gridSize, randomLifeGenerator(PERCENTAGE_ALIVE)));
+    container.innerHTML = toDOMString(generateInitialGrid(gridSize, randomLifeGenerator(PERCENTAGE_ALIVE)));
     return gridSize;
 };
 
@@ -69,18 +70,16 @@ if (import.meta.vitest) {
             expect(() => determineGridSize(0, 10)).toThrow();
         });
     });
-    describe("generateDomCellString", () => {
-        it("should generate alive cells correctly", () => {
-            expect(generateDomCellString(true)).toBe(`<div class="cell alive"></div>`);
+    describe("toDOMString", () => {
+        it("should generate DOM strings for alive cells correctly", () => {
+            expect(toDOMString(true)).toBe(`<div class="cell alive"></div>`);
         });
-        it("should generate dead cells correctly", () => {
-            expect(generateDomCellString(false)).toBe(`<div class="cell"></div>`);
+        it("should generate DOM strings for dead cells correctly", () => {
+            expect(toDOMString(false)).toBe(`<div class="cell"></div>`);
         });
-    });
-    describe("generateDomGridString", () => {
-        it("should generate a grid of the correct size", () => {
+        it("should generate DOM strings for grids of the correct size", () => {
             expect(
-                generateDomGridString([
+                toDOMString([
                     [false, false, false],
                     [true, false, false],
                     [false, false, false],
@@ -97,7 +96,7 @@ if (import.meta.vitest) {
                     '<div class="cell"></div>',
             );
             expect(
-                generateDomGridString([
+                toDOMString([
                     [false, false, false],
                     [false, false, false],
                     [false, false, false]
@@ -114,7 +113,7 @@ if (import.meta.vitest) {
                     '<div class="cell"></div>',
             );
             expect(
-                generateDomGridString([
+                toDOMString([
                     [true, true, true],
                     [true, true, true],
                     [true, true, true]
