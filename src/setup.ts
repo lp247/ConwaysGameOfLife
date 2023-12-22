@@ -42,8 +42,9 @@ export const setupGrid = (container: HTMLElement) => {
     container.style.setProperty("display", "grid");
     container.style.setProperty("grid-template-columns", `repeat(${gridSize.width}, 1fr)`);
     container.style.setProperty("grid-template-rows", `repeat(${gridSize.height}, 1fr)`);
-    container.innerHTML = toDOMString(generateInitialGrid(gridSize, randomLifeGenerator(PERCENTAGE_ALIVE)));
-    return gridSize;
+    const initialGrid = generateInitialGrid(gridSize, randomLifeGenerator(PERCENTAGE_ALIVE));
+    container.innerHTML = toDOMString(initialGrid);
+    return initialGrid;
 };
 
 if (import.meta.vitest) {
