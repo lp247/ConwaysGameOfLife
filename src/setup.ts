@@ -25,12 +25,7 @@ const toDOMString: DOMStringConverter = (value) => {
 };
 
 const generateInitialGrid = (size: GridSize, fill: (x: number, y: number) => boolean): Grid => {
-    return (
-        Array(size.height)
-            .fill(Array(size.width).fill(false))
-            // @ts-ignore
-            .map((row, y) => row.map((_, x) => fill(x, y)))
-    );
+    return (Array(size.height).fill(Array(size.width).fill(false)) as Grid).map((row, y) => row.map((_, x) => fill(x, y)));
 };
 
 const randomLifeGenerator = (percentageAlive: number) => (): boolean => Math.random() < percentageAlive;
