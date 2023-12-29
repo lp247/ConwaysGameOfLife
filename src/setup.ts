@@ -19,7 +19,7 @@ interface DOMStringConverter {
 
 const toDOMString: DOMStringConverter = (value) => {
     if (typeof value === "boolean") {
-        return value ? `<div class="cell alive"></div>` : `<div class="cell"></div>`;
+        return value ? '<div class="cell alive"></div>' : '<div class="cell"></div>';
     }
     return value.map((row) => row.map((cell) => toDOMString(cell)).join("")).join("");
 };
@@ -68,10 +68,10 @@ if (import.meta.vitest) {
     });
     describe("toDOMString", () => {
         it("should generate DOM strings for alive cells correctly", () => {
-            expect(toDOMString(true)).toBe(`<div class="cell alive"></div>`);
+            expect(toDOMString(true)).toBe('<div class="cell alive"></div>');
         });
         it("should generate DOM strings for dead cells correctly", () => {
-            expect(toDOMString(false)).toBe(`<div class="cell"></div>`);
+            expect(toDOMString(false)).toBe('<div class="cell"></div>');
         });
         it("should generate DOM strings for grids of the correct size", () => {
             expect(
@@ -95,8 +95,8 @@ if (import.meta.vitest) {
                 toDOMString([
                     [false, false, false],
                     [false, false, false],
-                    [false, false, false]
-                ])
+                    [false, false, false],
+                ]),
             ).toBe(
                 '<div class="cell"></div>' +
                     '<div class="cell"></div>' +
@@ -112,8 +112,8 @@ if (import.meta.vitest) {
                 toDOMString([
                     [true, true, true],
                     [true, true, true],
-                    [true, true, true]
-                ])
+                    [true, true, true],
+                ]),
             ).toBe(
                 '<div class="cell alive"></div>' +
                     '<div class="cell alive"></div>' +

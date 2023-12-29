@@ -13,7 +13,7 @@ export default defineConfig({
     },
     test: {
         includeSource: ["src/**/*.{js,ts}"],
-        globals: true
+        globals: true,
     },
     define: {
         "import.meta.vitest": "undefined",

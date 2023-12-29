@@ -1,4 +1,4 @@
-export type GridSize = {width: number, height: number};
+export type GridSize = {width: number; height: number};
 
 export type Grid = Array<Array<boolean>>;
 

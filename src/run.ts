@@ -99,20 +99,22 @@ if (import.meta.vitest) {
                 [false, true, true, false],
                 [false, false, false, true],
             ];
-            const container = {children: [
-                {classList: {add: vi.fn(), remove: vi.fn()}},
-                {classList: {add: vi.fn(), remove: vi.fn()}},
-                {classList: {add: vi.fn(), remove: vi.fn()}},
-                {classList: {add: vi.fn(), remove: vi.fn()}},
-                {classList: {add: vi.fn(), remove: vi.fn()}},
-                {classList: {add: vi.fn(), remove: vi.fn()}},
-                {classList: {add: vi.fn(), remove: vi.fn()}},
-                {classList: {add: vi.fn(), remove: vi.fn()}},
-                {classList: {add: vi.fn(), remove: vi.fn()}},
-                {classList: {add: vi.fn(), remove: vi.fn()}},
-                {classList: {add: vi.fn(), remove: vi.fn()}},
-                {classList: {add: vi.fn(), remove: vi.fn()}},
-            ]} as unknown as HTMLElement;
+            const container = {
+                children: [
+                    {classList: {add: vi.fn(), remove: vi.fn()}},
+                    {classList: {add: vi.fn(), remove: vi.fn()}},
+                    {classList: {add: vi.fn(), remove: vi.fn()}},
+                    {classList: {add: vi.fn(), remove: vi.fn()}},
+                    {classList: {add: vi.fn(), remove: vi.fn()}},
+                    {classList: {add: vi.fn(), remove: vi.fn()}},
+                    {classList: {add: vi.fn(), remove: vi.fn()}},
+                    {classList: {add: vi.fn(), remove: vi.fn()}},
+                    {classList: {add: vi.fn(), remove: vi.fn()}},
+                    {classList: {add: vi.fn(), remove: vi.fn()}},
+                    {classList: {add: vi.fn(), remove: vi.fn()}},
+                    {classList: {add: vi.fn(), remove: vi.fn()}},
+                ],
+            } as unknown as HTMLElement;
             render(container, grid);
             expect(container.children[0].classList.add).toHaveBeenCalledWith("alive");
             expect(container.children[0].classList.remove).not.toHaveBeenCalled();
