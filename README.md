@@ -1,7 +1,7 @@
 # Conway's Game of Life
 This project implements [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) in the browser. Conway's Game of Life is a grid of dead or live cells coupled with a set of rules for the lifecycle of those cells. Continuous appliance of these rules to the current grid and updating it with the next state leads to a simulation-like animation of birth, death, and movement of cells throughout the grid. For more information check out the wikipedia article. To see this project in action head over to [gol.lp247.dev](https://gol.lp247.dev).
 
-## Key aspects of development
+## Key Aspects of Development
 ### Required Tooling
 How much tooling is really needed? With the advent of native ES6 support including ES modules in all major browsers it is not entirely clear how much bundlers and toolings are still necessary today. Following is a list of tools still in use here with some notes.
 - Language - TypeScript: Nowadays, TypeScript is a must for every project involving more than just very basic functionality. Thus, the TypeScript compiler is the only frontend tool that is a strictly necessary dependency.
