@@ -4,10 +4,12 @@ const getAliveNeighboursOfCell = (grid: Grid, x: number, y: number): number => {
     let numAliveNeightbours = 0;
     for (let i = -1; i <= 1; i++) {
         for (let j = -1; j <= 1; j++) {
-            if ((i === 0 && j === 0) || x + i < 0 || y + j < 0 || x + i >= getGridWidth(grid) || y + j >= getGridHeight(grid)) {
+            if (!i && !j) {
                 continue;
             }
-            numAliveNeightbours += grid[y + j][x + i] ? 1 : 0;
+            let px = x + i < 0 ? getGridWidth(grid) - 1 : x + i >= getGridWidth(grid) ? 0 : x + i;
+            let py = y + j < 0 ? getGridHeight(grid) - 1 : y + j >= getGridHeight(grid) ? 0 : y + j;
+            numAliveNeightbours += grid[py][px] ? 1 : 0;
         }
     }
     return numAliveNeightbours;
@@ -56,39 +58,37 @@ if (import.meta.vitest) {
                 [false, true, true],
                 [false, false, false],
             ];
-            expect(getAliveNeighboursOfCell(grid, 0, 0)).toBe(1);
-            expect(getAliveNeighboursOfCell(grid, 0, 1)).toBe(2);
-            expect(getAliveNeighboursOfCell(grid, 0, 2)).toBe(1);
+            expect(getAliveNeighboursOfCell(grid, 0, 0)).toBe(2);
+            expect(getAliveNeighboursOfCell(grid, 0, 1)).toBe(3);
+            expect(getAliveNeighboursOfCell(grid, 0, 2)).toBe(3);
             expect(getAliveNeighboursOfCell(grid, 1, 0)).toBe(3);
             expect(getAliveNeighboursOfCell(grid, 1, 1)).toBe(2);
-            expect(getAliveNeighboursOfCell(grid, 1, 2)).toBe(2);
-            expect(getAliveNeighboursOfCell(grid, 2, 0)).toBe(2);
-            expect(getAliveNeighboursOfCell(grid, 2, 1)).toBe(1);
-            expect(getAliveNeighboursOfCell(grid, 2, 2)).toBe(2);
+            expect(getAliveNeighboursOfCell(grid, 1, 2)).toBe(3);
+            expect(getAliveNeighboursOfCell(grid, 2, 0)).toBe(3);
+            expect(getAliveNeighboursOfCell(grid, 2, 1)).toBe(2);
+            expect(getAliveNeighboursOfCell(grid, 2, 2)).toBe(3);
         });
     });
     describe("getGenerationSequencer", () => {
         it("should return the correct next generation", () => {
             const grid = [
-                [true, true, false],
-                [false, true, true],
-                [false, false, false],
+                [true, false, false, false],
+                [false, true, true, false],
+                [false, false, false, false],
+                [false, true, false, false],
             ];
             const genSequencer = getGenerationSequencer(grid);
             expect(genSequencer.next()).toStrictEqual([
-                [true, true, true],
-                [true, true, true],
-                [false, false, false],
+                [true, false, true, false],
+                [false, true, false, false],
+                [false, true, true, false],
+                [false, false, false, false]
             ]);
             expect(genSequencer.next()).toStrictEqual([
-                [true, false, true],
-                [true, false, true],
-                [false, true, false],
-            ]);
-            expect(genSequencer.next()).toStrictEqual([
-                [false, false, false],
-                [true, false, true],
-                [false, true, false],
+                [false, true, false, false],
+                [true, false, false, true],
+                [false, true, true, false],
+                [false, false, true, true]
             ]);
         });
     });
