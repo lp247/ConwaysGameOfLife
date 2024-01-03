@@ -1,9 +1,9 @@
 import {createGenerationSequencer} from "./GenerationSequencer.js";
 import {random} from "./distributors.js";
+import {createEngine} from "./engine.js";
 import {renderGrid} from "./rendering.js";
 import {generateGrid, determineGridSize} from "./utils.js";
 
-const UPDATE_INTERVAL = 100;
 const PERCENTAGE_ALIVE = 0.5;
 
 export const app = () => {
@@ -15,7 +15,8 @@ export const app = () => {
         const {clientWidth, clientHeight} = document.documentElement;
         const initialGrid = generateGrid(determineGridSize(clientWidth, clientHeight), random(PERCENTAGE_ALIVE));
         const genSequencer = createGenerationSequencer(initialGrid);
-        setInterval(() => renderGrid(gridContainer, genSequencer.next()), UPDATE_INTERVAL);
+        const engine = createEngine(() => renderGrid(gridContainer, genSequencer.next()));
+        engine.start();
     } catch (error) {
         console.error(`There was an error: ${error}`);
     }
