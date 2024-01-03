@@ -66,13 +66,13 @@ if (import.meta.vitest) {
                 [true, false, true, false],
                 [false, true, false, false],
                 [false, true, true, false],
-                [false, false, false, false]
+                [false, false, false, false],
             ]);
             expect(genSequencer.next()).toStrictEqual([
                 [false, true, false, false],
                 [true, false, false, true],
                 [false, true, true, false],
-                [false, false, true, true]
+                [false, false, true, true],
             ]);
         });
     });
